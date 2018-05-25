@@ -10,7 +10,7 @@ const eventsList = [
   {
     id: '1',
     title: 'Trip to Tower of London',
-    date: '2018-03-27T11:00:00+00:00',
+    date: '2018-03-27',
     category: 'culture',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
@@ -34,7 +34,7 @@ const eventsList = [
   {
     id: '2',
     title: 'Trip to Punch and Judy Pub',
-    date: '2018-03-28T14:00:00+00:00',
+    date: '2018-03-28',
     category: 'drinks',
     description:
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus sollicitudin ligula eu leo tincidunt, quis scelerisque magna dapibus. Sed eget ipsum vel arcu vehicula ullamcorper.',
@@ -63,12 +63,14 @@ class EventDashBoard extends Component {
 
     state = {
       events: eventsList,
+      selectedEvent: null,
       isOpen: false
     }
 
 
   handleFormOpen = () => {
     this.setState({
+      selectedEvent: null,
       isOpen: true
     })
   }
@@ -81,7 +83,7 @@ class EventDashBoard extends Component {
 
   handleCreateEvent = (newEvent) => {
       newEvent.id = cuid()
-      newEvent.photoURL = "/assets/user.png"
+      newEvent.hostPhotoURL = "/assets/user.png"
       const updatedState = [...this.state.events, newEvent]
       this.setState({
         events:updatedState,
@@ -89,16 +91,53 @@ class EventDashBoard extends Component {
       })
   }
 
+  handleUpdateEvent = (updatedEvent) => {
+    this.setState({
+      events: this.state.events.map(event => {
+        if(event.id === updatedEvent.id){
+          return Object.assign({}, updatedEvent)
+        }else{
+          return event
+        }
+      }),
+      isOpen: false,
+      selectedEvent: null
+    })
+  }
+
+  handleOpenEvent = (eventOpen) => () => {
+      this.setState({
+        selectedEvent: eventOpen,
+        isOpen: true
+      })
+  }
+
+  handleDeleteEvent = (eventId) => () => {
+    const updatedState = this.state.events.filter(event => (
+        event.id !== eventId
+    ))
+    this.setState({
+      events: updatedState
+    })
+  }
+
   render() {
+
+    const { selectedEvent } = this.state
+
     return (
       <Grid>
         <Grid.Column width={10}>
-            <EventList events={this.state.events} />
+            <EventList events={this.state.events}
+                       onOpenEvent={this.handleOpenEvent}
+                       onDeleteEvent={this.handleDeleteEvent} />
         </Grid.Column>
         <Grid.Column width={6}>
         <Button positive content="Create Event" onClick={this.handleFormOpen} />
-            {this.state.isOpen && <EventForm handleCancel={this.handleCanselForm}
-                                             handleCreateEvent={this.handleCreateEvent} /> } 
+            {this.state.isOpen && <EventForm selectedEvent={selectedEvent}
+                                             onCancelForm={this.handleCanselForm}
+                                             onCreateEvent={this.handleCreateEvent}
+                                             onUpdateEvent={this.handleUpdateEvent} /> } 
         </Grid.Column>
       </Grid>
     )
