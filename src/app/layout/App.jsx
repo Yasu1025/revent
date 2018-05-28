@@ -22,7 +22,7 @@ class App extends Component {
         </Switch>
 
         <Route path="/(.+)" render={()=>(
-            <div className="App">
+            <div>
             <NavBar />
             <Container className="main">
               <Switch>

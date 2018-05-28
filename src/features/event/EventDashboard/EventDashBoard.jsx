@@ -3,7 +3,6 @@ import { Grid } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 import EventList from '../EventList/EventList'
-import EventForm from '../EventForm/EventForm'
 import { deleteEvent } from '../eventActions'
 
 
