@@ -1,6 +1,6 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
-import { Grid, Segment} from 'semantic-ui-react'
+import { Grid } from 'semantic-ui-react'
 
 import AboutPage from './AboutPage'
 import AccountPage from './AccountPage'

@@ -3,7 +3,6 @@ import { Menu, Container, Button} from 'semantic-ui-react'
 import { NavLink, Link, withRouter } from 'react-router-dom'
 import SignedOutMenu from '../Menus/SignedOutMenu'
 import SignedInMenu from '../Menus/SignedInMenu'
-import { auth } from 'firebase';
 
 class NavBar extends Component {
 

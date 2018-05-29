@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Menu, Dropdown, Image } from 'semantic-ui-react'
+import { Menu, Dropdown, Image } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
 const SignedInMenu = ({signOut}) => {

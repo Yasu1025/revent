@@ -11,6 +11,9 @@ import UserDetail from '../../features/user/UserDetail/UserDetail'
 import SettingDashboard from '../../features/user/Setting/SettingDashboard'
 import HomePage from '../../features/home/HomePage'
 
+import TestComponent from '../../features/test/TestComponent'
+
+// api key  AIzaSyD3ZaC2cUMiGgUtVvYrHFY9wxwkjRWazNY
 
 class App extends Component {
   render() {
@@ -26,6 +29,7 @@ class App extends Component {
             <NavBar />
             <Container className="main">
               <Switch>
+                <Route path="/test" component={TestComponent}/>
                 <Route path="/events" component={EventDashboard}/>
                 <Route path="/event/:id" component={EventDetailPage}/>
                 <Route path="/manage/:id" component={EventForm}/>
