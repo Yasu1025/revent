@@ -1,32 +1,43 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Menu, Container, Button} from 'semantic-ui-react'
 import { NavLink, Link, withRouter } from 'react-router-dom'
 import SignedOutMenu from '../Menus/SignedOutMenu'
 import SignedInMenu from '../Menus/SignedInMenu'
+import { modalOpen } from '../../modals/modalActions'
+import { signOut } from '.././../auth/authAction'
+
+
+const mapState = (state) => ({
+  auth: state.auth
+})
+
+const actions = {
+  modalOpen,
+  signOut
+}
 
 class NavBar extends Component {
 
-  state = {
-    authentication: true
-  }
 
   handleSignIn = () => {
-    this.setState({
-      authentication: true
-    })
+    this.props.modalOpen("LoginModal")
   } 
 
+  handleRegister = () => {
+    this.props.modalOpen("RegisterModal")
+  }
+
   handleSignOut = () => {
-    this.setState({
-      authentication: false
-    })
+    this.props.signOut()
 
     this.props.history.push("/")
   } 
 
   render() {
 
-    const { authentication } = this.state
+    const { auth } = this.props
+    const authenticated = auth.authenticate
 
     return (
       <Menu inverted fixed="top">
@@ -36,18 +47,18 @@ class NavBar extends Component {
               Re-vents
             </Menu.Item>
             <Menu.Item as={NavLink} to="/events" name="Events" />
-            {(authentication) && 
+            {(authenticated) && 
               <Menu.Item as={NavLink} to="/people" name="People" />
             }
-            {(authentication) &&
+            {(authenticated) &&
               <Menu.Item>
                 <Button as={Link} to="/createEvent" floated="right" positive inverted content="Create Event" />
               </Menu.Item>
             }
             {
-              (authentication) ?
-                <SignedInMenu  signOut={this.handleSignOut} /> :
-                <SignedOutMenu signIn={this.handleSignIn} />
+              (authenticated) ?
+                <SignedInMenu loggedInUser={auth.loggedInUser}  signOut={this.handleSignOut} /> :
+                <SignedOutMenu signIn={this.handleSignIn} register={this.handleRegister} />
             }
         </Container>
       </Menu>
@@ -56,4 +67,4 @@ class NavBar extends Component {
 }
 
 
-export default withRouter(NavBar)
+export default withRouter(connect(mapState, actions)(NavBar))

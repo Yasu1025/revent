@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import {Icon} from 'semantic-ui-react'
 // To achive Autocomplete with API
 import Script from 'react-load-script'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import GoogleMapReact from 'google-map-react';
 
 import { incrementNum, decrementNum } from './testAction'
-import {Icon} from 'semantic-ui-react'
+import { modalOpen } from '../modals/modalActions'
+
 
 const mapState = (state) => ({
     data: state.test.data
@@ -14,7 +16,8 @@ const mapState = (state) => ({
 
 const actions = {
     incrementNum,
-    decrementNum
+    decrementNum,
+    modalOpen
 }
 
 // for Icon
@@ -58,12 +61,12 @@ class TestComponent extends Component {
 
 
   render() {
-      const { data, incrementNum, decrementNum } = this.props
+      const { data, incrementNum, decrementNum, modalOpen } = this.props
       const inputProps = {
         value: this.state.address,
         onChange: this.onChange,
       }
-      const url = "https://maps.googleapis.com/maps/api/js?key=AIzaSyB-OcIwRFz4Ku4EHYSxQZ-owWDi6iIUo6c&libraries=places"
+      //const url = "https://maps.googleapis.com/maps/api/js?key=AIzaSyB-OcIwRFz4Ku4EHYSxQZ-owWDi6iIUo6c&libraries=places"
     return (
       <div>
         {/* <Script 
@@ -80,9 +83,11 @@ class TestComponent extends Component {
         <button type="submit">Submit</button>
       </form>
 
+      <button onClick={() => modalOpen('TestModal', {data: 99})}>Open Modal</button>
+
 
        {/* Important! Always set the container height explicitly */}
-      <div style={{ height: '300px', width: '100%' }}>
+      {/* <div style={{ height: '300px', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyB-OcIwRFz4Ku4EHYSxQZ-owWDi6iIUo6c" }}
           defaultCenter={this.props.center}
@@ -94,7 +99,7 @@ class TestComponent extends Component {
             text={'Kreyser Avrora'}
           />
         </GoogleMapReact>
-      </div>
+      </div> */}
 
       </div>
     )

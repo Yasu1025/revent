@@ -10,6 +10,7 @@ import PeopleDashboard from '../../features/user/PeopleDashboard/PeopleDashboard
 import UserDetail from '../../features/user/UserDetail/UserDetail'
 import SettingDashboard from '../../features/user/Setting/SettingDashboard'
 import HomePage from '../../features/home/HomePage'
+import ModalManager from '../../features/modals/modalmanager'
 
 import TestComponent from '../../features/test/TestComponent'
 
@@ -20,6 +21,9 @@ class App extends Component {
     return (
 
       <div>
+
+        <ModalManager />
+
         <Switch>
           <Route exact path="/" component={HomePage}/>
         </Switch>
