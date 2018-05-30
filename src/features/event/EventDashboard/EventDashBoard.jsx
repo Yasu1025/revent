@@ -3,6 +3,7 @@ import { Grid } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 import EventList from '../EventList/EventList'
+import EventActivity from '../eventActivity/EventActivity'
 import { deleteEvent } from '../eventActions'
 import Loading from '../../../app/layout/Loading'
 
@@ -37,7 +38,7 @@ class EventDashBoard extends Component {
                        onDeleteEvent={this.handleDeleteEvent} />
         </Grid.Column>
         <Grid.Column width={6}>
-          <h1>Work on Later...</h1>
+          <EventActivity />
         </Grid.Column>
       </Grid>
     )

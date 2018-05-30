@@ -2,6 +2,7 @@
 import React, { Component } from 'react'
 import { Segment, Icon, Grid, Button } from 'semantic-ui-react'
 import EventDetailMap from './EventDetailMap'
+import format from 'date-fns/format'
 
 
 
@@ -9,6 +10,13 @@ import EventDetailMap from './EventDetailMap'
 
   state = {
     showMap: false
+  }
+
+  // イベントを編集しようと編集ページを映ると、APIを二度呼ばれるのを防ぐ
+  componentWillUnmount(){
+    this.setState({
+      showMap: false
+    })
   }
 
   showMapToggle = () => {
@@ -38,7 +46,10 @@ import EventDetailMap from './EventDetailMap'
             <Icon size="large" color="teal" name="calendar" />
           </Grid.Column>
           <Grid.Column width={15}>
-            <span>{event.date}</span>
+            <span>
+                  {format(event.date, "YYYY dddd Do MMMM")} at    
+                  {format(event.date, "h:mm A")}
+            </span>
             
           </Grid.Column>
         </Grid>
