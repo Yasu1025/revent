@@ -6,7 +6,7 @@ import Script from 'react-load-script'
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import GoogleMapReact from 'google-map-react';
 
-import { incrementNum, decrementNum } from './testAction'
+import { incrementAsync, decremenAsync } from './testAction'
 import { modalOpen } from '../modals/modalActions'
 
 
@@ -15,8 +15,8 @@ const mapState = (state) => ({
 })
 
 const actions = {
-    incrementNum,
-    decrementNum,
+    incrementAsync,
+    decremenAsync,
     modalOpen
 }
 
@@ -61,7 +61,7 @@ class TestComponent extends Component {
 
 
   render() {
-      const { data, incrementNum, decrementNum, modalOpen } = this.props
+      const { data, incrementAsync, decremenAsync, modalOpen } = this.props
       const inputProps = {
         value: this.state.address,
         onChange: this.onChange,
@@ -74,8 +74,8 @@ class TestComponent extends Component {
           onLoad = {this.handleScriptLoad}
            /> */}
         <h1>{data}</h1>
-        <button onClick={incrementNum}>INC</button>
-        <button onClick={decrementNum}>DEC</button>
+        <button onClick={incrementAsync}>INC</button>
+        <button onClick={decremenAsync}>DEC</button>
         <br/><br/>
 
       <form onSubmit={this.handleFormSubmit}>

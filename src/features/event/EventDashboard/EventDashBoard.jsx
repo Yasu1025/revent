@@ -4,10 +4,12 @@ import { connect } from 'react-redux'
 
 import EventList from '../EventList/EventList'
 import { deleteEvent } from '../eventActions'
+import Loading from '../../../app/layout/Loading'
 
 
 const mapState = (state) => ({
-  events: state.events
+  events: state.events,
+  isLoading: state.async.isLoading
 })
 
 const actions = {
@@ -24,9 +26,11 @@ class EventDashBoard extends Component {
 
   render() {
 
-    const { events } = this.props
+    const { events, isLoading } = this.props
+    if(isLoading) return <Loading inverted = {true}/>
 
     return (
+      
       <Grid>
         <Grid.Column width={10}>
             <EventList events={events}

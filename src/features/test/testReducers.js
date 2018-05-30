@@ -1,21 +1,35 @@
-import { INCREMENT_NUM, DECREMENT_NUM } from "./testConstance";
+import { INCREMENT_NUM, DECREMENT_NUM, COUNTER_ACTION_START, COUNTER_ACTION_FINISH } from './testConstance'
 import { createReducer } from '../../app/common/util/reducersUtil'
 
 const initialState = {
-    data: 49
+    data: 49,
+    loading: false
 }
 
-const incrementNum = (state, payload) => {
+export const incrementNum = (state, payload) => {
     return {
         ...state,
         data: state.data + 1
     }
 }
 
-const decrementNum = (state, payload) => {
+export const decrementNum = (state, payload) => {
     return{
         ...state,
         data: state.data -1
+    }
+}
+
+export const counterActionStart = (state, payload) => {
+    return{
+        ...state,
+        loading: true
+    }
+}
+export const counterActionFinish = (state, payload) => {
+    return{
+        ...state,
+        loading: false
     }
 }
 
@@ -37,6 +51,8 @@ const decrementNum = (state, payload) => {
 // }
 
 export default createReducer(initialState, {
-    "INCREMENT_NUM": incrementNum,
-    "DECREMENT_NUM": decrementNum
+    [INCREMENT_NUM]: incrementNum,
+    [DECREMENT_NUM]: decrementNum,
+    [COUNTER_ACTION_START]: counterActionStart,
+    [COUNTER_ACTION_FINISH]: counterActionFinish
 })

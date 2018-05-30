@@ -9,8 +9,10 @@ import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux'
 import { configureStore } from './app/store/configureStore'
 import ScrollToTop from '../src/app/common/util/ScrollToTop'
+import { loadEvents } from './features/event/eventActions'
 
 const store = configureStore()
+store.dispatch(loadEvents())
 
 
 ReactDOM.render(
